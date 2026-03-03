@@ -1,27 +1,25 @@
-Basic Room Types & Static Availability
+Centralized Room Inventory Management
 
-This program demonstrates object-oriented modeling in a Hotel Booking Management System.
+This use case introduces centralized inventory management using a HashMap.
 
-An abstract class Room is created to represent a generic hotel room.
+A new class RoomInventory is created to manage room availability.
 
-The Room class contains common attributes:
+Room availability is stored using HashMap<String, Integer> where:
 
-numberOfBeds
+Key → Room Type
 
-squareFeet
+Value → Available Room Count
 
-pricePerNight
+The HashMap provides average O(1) constant-time lookup and update operations.
 
-Concrete classes SingleRoom, DoubleRoom, and SuiteRoom extend the Room class using inheritance.
+Inventory initialization is handled inside the constructor to ensure a consistent starting state.
 
-Polymorphism is demonstrated by referencing child objects using the Room type.
+The method getRoomAvailability() returns the current inventory status.
 
-Availability is stored using simple integer variables (static representation).
+The method updateAvailability() allows controlled updates to room counts.
 
-The program prints room details and availability to the console.
+This design establishes a Single Source of Truth for availability data.
 
-No data structures (ArrayList, Map, etc.) are used in this use case.
+Room characteristics (beds, size, price) remain in the Room domain model, ensuring separation of concerns.
 
-The purpose is to separate domain modeling (what a room is) from system state (availability).
-
-This use case builds the foundation for future inventory management and refactoring.
+This approach improves scalability, maintainability, and prevents inconsistent state compared to scattered variables used in Use Case 2.

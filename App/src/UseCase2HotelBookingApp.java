@@ -49,6 +49,9 @@ class SuiteRoom extends Room {
 }
 
 
+
+public class UseCase2HotelBookingApp {
+=======
 public class UseCase2HotelBookingApp{
 
     public static void main(String[] args) {
