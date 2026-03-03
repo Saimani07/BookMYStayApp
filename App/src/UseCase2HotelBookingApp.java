@@ -49,7 +49,7 @@ class SuiteRoom extends Room {
 }
 
 
-public class UseCase2RoomInitialization {
+public class UseCase2HotelBookingApp {
 
     public static void main(String[] args) {
 
