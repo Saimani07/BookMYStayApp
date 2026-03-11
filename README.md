@@ -1,100 +1,97 @@
-# Use Case 4 – Room Search & Availability Check
+# Use Case 5 – Booking Request (First-Come-First-Served)
 
 ## Project Description
 
-This project demonstrates a **Hotel Booking Management System module** that allows guests to search for available rooms without modifying the inventory data.
-The system follows **read-only access principles**, ensuring that room availability can be viewed safely without affecting booking or inventory updates.
+This module of the **Hotel Booking Management System** demonstrates how booking requests are handled using a **First-Come-First-Served (FIFO)** approach.
+The system collects booking requests from guests and stores them in a queue to ensure fair and ordered processing.
 
 ## Objective
 
-The goal of this use case is to enable guests to:
+The goal of this use case is to:
 
-* View available room types
-* Check room pricing and details
-* Ensure that only rooms with available inventory are displayed
-
-The system maintains **clear separation between search operations and booking logic**.
+* Accept booking requests from guests
+* Store requests in the order they arrive
+* Ensure fair handling of multiple booking requests
+* Prepare requests for later processing by the room allocation system
 
 ## Key Concepts Used
 
-* **Read-Only Access** – The search service reads data without modifying inventory.
-* **Defensive Programming** – Ensures only valid and available rooms are displayed.
-* **Separation of Concerns** – Search logic is separated from booking and inventory updates.
-* **Inventory as State Holder** – The inventory stores room availability information.
-* **Domain Model Usage** – Room objects contain details such as pricing and amenities.
+* **Queue Data Structure** – Used to store booking requests.
+* **FIFO Principle** – Requests are processed in the order they arrive.
+* **Fair Request Handling** – Prevents any request from bypassing another.
+* **Decoupling Request Intake from Allocation** – Requests are collected first and processed later.
 
 ## System Components
 
-1. **Room Class**
+### 1. Reservation Class
 
-    * Stores room details such as:
+Represents a booking request made by a guest.
 
-        * Room type
-        * Price
-        * Amenities
+Stores:
 
-2. **RoomInventory Class**
+* Guest Name
+* Requested Room Type
 
-    * Maintains the availability of rooms using a Map.
-    * Provides a method to retrieve availability.
+### 2. BookingRequestQueue Class
 
-3. **RoomSearchService Class**
+Manages booking requests using a **Queue**.
 
-    * Implements the room search functionality.
-    * Displays available rooms based on inventory data.
+Main functions:
 
-4. **Main Class (UseCase4RoomSearch)**
+* Add booking requests to the queue
+* Retrieve the next request
+* Check if pending requests exist
 
-    * Creates room objects.
-    * Initializes inventory.
-    * Calls the search service to display available rooms.
+### 3. Main Class (UseCase5BookingRequestQueue)
+
+* Initializes the booking queue
+* Creates reservation requests
+* Adds them to the queue
+* Displays requests in FIFO order
 
 ## Features
 
-* Displays only rooms with availability greater than zero
-* Retrieves availability from centralized inventory
-* Shows room details and pricing
-* Prevents accidental modification of inventory
+* Maintains request order automatically
+* Ensures fair booking request handling
+* Prevents simultaneous request conflicts
+* No inventory or room allocation occurs at this stage
 
 ## How to Compile and Run
 
 ### Compile
 
-```
-javac UseCase4RoomSearch.java
+```bash
+javac UseCase5BookingRequestQueue.java
 ```
 
 ### Run
 
+```bash
+java UseCase5BookingRequestQueue
 ```
-java UseCase4RoomSearch
-```
 
-## Sample Output
+## Example Output
 
 ```
-Available Rooms:
+Booking Request Queue
 
-Room Type: Single
-Price: 2000
-Amenities: WiFi, TV
+Processing booking request:
+Guest: Abhi - Room Type: Single
 
-Room Type: Double
-Price: 3500
-Amenities: WiFi, TV, AC
+Processing booking request:
+Guest: Subha - Room Type: Double
 
-Room Type: Suite
-Price: 6000
-Amenities: WiFi, TV, AC, Mini Bar
+Processing booking request:
+Guest: Vanmathi - Room Type: Suite
 ```
 
 ## Benefits
 
-* Accurate visibility of room availability
-* Improved system stability
-* Reduced risk of inventory corruption
-* Clear separation between read-only and write operations
+* Fair booking request management
+* Predictable behavior during peak demand
+* Efficient handling of multiple booking requests
+* Preparation for later room allocation
 
 ## Author
 
-Saimani07
+Sai Manikanta
