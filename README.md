@@ -1,25 +1,100 @@
-Centralized Room Inventory Management
+# Use Case 4 – Room Search & Availability Check
 
-This use case introduces centralized inventory management using a HashMap.
+## Project Description
 
-A new class RoomInventory is created to manage room availability.
+This project demonstrates a **Hotel Booking Management System module** that allows guests to search for available rooms without modifying the inventory data.
+The system follows **read-only access principles**, ensuring that room availability can be viewed safely without affecting booking or inventory updates.
 
-Room availability is stored using HashMap<String, Integer> where:
+## Objective
 
-Key → Room Type
+The goal of this use case is to enable guests to:
 
-Value → Available Room Count
+* View available room types
+* Check room pricing and details
+* Ensure that only rooms with available inventory are displayed
 
-The HashMap provides average O(1) constant-time lookup and update operations.
+The system maintains **clear separation between search operations and booking logic**.
 
-Inventory initialization is handled inside the constructor to ensure a consistent starting state.
+## Key Concepts Used
 
-The method getRoomAvailability() returns the current inventory status.
+* **Read-Only Access** – The search service reads data without modifying inventory.
+* **Defensive Programming** – Ensures only valid and available rooms are displayed.
+* **Separation of Concerns** – Search logic is separated from booking and inventory updates.
+* **Inventory as State Holder** – The inventory stores room availability information.
+* **Domain Model Usage** – Room objects contain details such as pricing and amenities.
 
-The method updateAvailability() allows controlled updates to room counts.
+## System Components
 
-This design establishes a Single Source of Truth for availability data.
+1. **Room Class**
 
-Room characteristics (beds, size, price) remain in the Room domain model, ensuring separation of concerns.
+    * Stores room details such as:
 
-This approach improves scalability, maintainability, and prevents inconsistent state compared to scattered variables used in Use Case 2.
+        * Room type
+        * Price
+        * Amenities
+
+2. **RoomInventory Class**
+
+    * Maintains the availability of rooms using a Map.
+    * Provides a method to retrieve availability.
+
+3. **RoomSearchService Class**
+
+    * Implements the room search functionality.
+    * Displays available rooms based on inventory data.
+
+4. **Main Class (UseCase4RoomSearch)**
+
+    * Creates room objects.
+    * Initializes inventory.
+    * Calls the search service to display available rooms.
+
+## Features
+
+* Displays only rooms with availability greater than zero
+* Retrieves availability from centralized inventory
+* Shows room details and pricing
+* Prevents accidental modification of inventory
+
+## How to Compile and Run
+
+### Compile
+
+```
+javac UseCase4RoomSearch.java
+```
+
+### Run
+
+```
+java UseCase4RoomSearch
+```
+
+## Sample Output
+
+```
+Available Rooms:
+
+Room Type: Single
+Price: 2000
+Amenities: WiFi, TV
+
+Room Type: Double
+Price: 3500
+Amenities: WiFi, TV, AC
+
+Room Type: Suite
+Price: 6000
+Amenities: WiFi, TV, AC, Mini Bar
+```
+
+## Benefits
+
+* Accurate visibility of room availability
+* Improved system stability
+* Reduced risk of inventory corruption
+* Clear separation between read-only and write operations
+
+## Author
+
+Saimani07
