@@ -1,96 +1,99 @@
-# Use Case 5 – Booking Request (First-Come-First-Served)
+# Use Case 6 – Reservation Confirmation & Room Allocation
 
 ## Project Description
 
-This module of the **Hotel Booking Management System** demonstrates how booking requests are handled using a **First-Come-First-Served (FIFO)** approach.
-The system collects booking requests from guests and stores them in a queue to ensure fair and ordered processing.
+This module of the **Hotel Booking Management System** confirms booking requests and allocates rooms safely.
+The system processes booking requests and assigns a **unique room ID** to each confirmed reservation while updating the room inventory immediately.
 
 ## Objective
 
-The goal of this use case is to:
+The objective of this use case is to:
 
-* Accept booking requests from guests
-* Store requests in the order they arrive
-* Ensure fair handling of multiple booking requests
-* Prepare requests for later processing by the room allocation system
+* Confirm booking requests from the queue
+* Assign a unique room ID for each reservation
+* Prevent double booking
+* Maintain consistency between booking and inventory data
 
 ## Key Concepts Used
 
-* **Queue Data Structure** – Used to store booking requests.
-* **FIFO Principle** – Requests are processed in the order they arrive.
-* **Fair Request Handling** – Prevents any request from bypassing another.
-* **Decoupling Request Intake from Allocation** – Requests are collected first and processed later.
+* **Set Data Structure** – Ensures uniqueness of room IDs.
+* **HashMap** – Maps room types to allocated room IDs.
+* **Inventory Synchronization** – Updates room availability immediately after allocation.
+* **Atomic Allocation Operation** – Room assignment and inventory update occur together.
 
 ## System Components
 
 ### 1. Reservation Class
 
-Represents a booking request made by a guest.
+Represents a guest’s booking request.
 
 Stores:
 
 * Guest Name
 * Requested Room Type
 
-### 2. BookingRequestQueue Class
+### 2. RoomInventory Class
 
-Manages booking requests using a **Queue**.
+Maintains the current room availability.
 
-Main functions:
+Functions:
 
-* Add booking requests to the queue
-* Retrieve the next request
-* Check if pending requests exist
+* Retrieve available rooms
+* Update inventory after allocation
 
-### 3. Main Class (UseCase5BookingRequestQueue)
+### 3. RoomAllocationService Class
 
-* Initializes the booking queue
-* Creates reservation requests
-* Adds them to the queue
-* Displays requests in FIFO order
+Responsible for:
+
+* Confirming booking requests
+* Generating unique room IDs
+* Assigning rooms safely
+* Updating inventory
+
+### 4. Main Class (UseCase6RoomAllocationService)
+
+* Initializes room inventory
+* Creates booking requests
+* Calls the allocation service
+* Displays booking confirmations
 
 ## Features
 
-* Maintains request order automatically
-* Ensures fair booking request handling
-* Prevents simultaneous request conflicts
-* No inventory or room allocation occurs at this stage
+* Generates unique room IDs
+* Prevents duplicate room allocation
+* Updates inventory immediately
+* Ensures consistent booking records
 
 ## How to Compile and Run
 
 ### Compile
 
 ```bash
-javac UseCase5BookingRequestQueue.java
+javac UseCase6RoomAllocationService.java
 ```
 
 ### Run
 
 ```bash
-java UseCase5BookingRequestQueue
+java UseCase6RoomAllocationService
 ```
 
 ## Example Output
 
 ```
-Booking Request Queue
+Room Allocation Processing
 
-Processing booking request:
-Guest: Abhi - Room Type: Single
-
-Processing booking request:
-Guest: Subha - Room Type: Double
-
-Processing booking request:
-Guest: Vanmathi - Room Type: Suite
+Booking confirmed for Guest: Abhi, Room ID: Single-1
+Booking confirmed for Guest: Subha, Room ID: Single-2
+Booking confirmed for Guest: Vanmathi, Room ID: Suite-1
 ```
 
 ## Benefits
 
-* Fair booking request management
-* Predictable behavior during peak demand
-* Efficient handling of multiple booking requests
-* Preparation for later room allocation
+* Guaranteed uniqueness of room assignments
+* Prevention of double-booking
+* Immediate synchronization between booking and inventory
+* Reliable room allocation process
 
 ## Author
 
