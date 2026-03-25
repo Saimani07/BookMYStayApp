@@ -1,100 +1,62 @@
-# Use Case 6 – Reservation Confirmation & Room Allocation
+Project Overview
 
-## Project Description
+Book My Stay is a Core Java-based Hotel Booking Management System designed to demonstrate practical application of:
 
-This module of the **Hotel Booking Management System** confirms booking requests and allocates rooms safely.
-The system processes booking requests and assigns a **unique room ID** to each confirmed reservation while updating the room inventory immediately.
+Object-Oriented Programming (OOP)
 
-## Objective
+Abstraction & Inheritance
 
-The objective of this use case is to:
+Polymorphism
 
-* Confirm booking requests from the queue
-* Assign a unique room ID for each reservation
-* Prevent double booking
-* Maintain consistency between booking and inventory data
+Encapsulation
 
-## Key Concepts Used
+HashMap for centralized state management
 
-* **Set Data Structure** – Ensures uniqueness of room IDs.
-* **HashMap** – Maps room types to allocated room IDs.
-* **Inventory Synchronization** – Updates room availability immediately after allocation.
-* **Atomic Allocation Operation** – Room assignment and inventory update occur together.
+Scalable system design principles
 
-## System Components
+The project is implemented incrementally using structured use cases to illustrate how real-world software systems evolve.
 
-### 1. Reservation Class
+🎯 Implemented Use Cases (Main Branch)
+✅ Use Case 1 – Application Entry & Welcome Message
 
-Represents a guest’s booking request.
+Demonstrates Java program execution flow
 
-Stores:
+Introduces main() method
 
-* Guest Name
-* Requested Room Type
+Establishes predictable application startup
 
-### 2. RoomInventory Class
+✅ Use Case 2 – Basic Room Types & Static Availability
 
-Maintains the current room availability.
+Introduces abstract class Room
 
-Functions:
+Implements SingleRoom, DoubleRoom, SuiteRoom
 
-* Retrieve available rooms
-* Update inventory after allocation
+Demonstrates inheritance and polymorphism
 
-### 3. RoomAllocationService Class
+Uses simple variables for availability
 
-Responsible for:
+✅ Use Case 3 – Centralized Room Inventory Management
 
-* Confirming booking requests
-* Generating unique room IDs
-* Assigning rooms safely
-* Updating inventory
+Replaces scattered variables with HashMap
 
-### 4. Main Class (UseCase6RoomAllocationService)
+Introduces RoomInventory class
 
-* Initializes room inventory
-* Creates booking requests
-* Calls the allocation service
-* Displays booking confirmations
+Establishes Single Source of Truth
 
-## Features
+Provides O(1) availability lookup and update
 
-* Generates unique room IDs
-* Prevents duplicate room allocation
-* Updates inventory immediately
-* Ensures consistent booking records
+Ensures separation of concerns
 
-## How to Compile and Run
+🏗 Architecture Highlights
 
-### Compile
+Domain Model: Room and its subclasses
 
-```bash
-javac UseCase6RoomAllocationService.java
-```
+Inventory Management: RoomInventory
 
-### Run
+Availability stored using HashMap<String, Integer>
 
-```bash
-java UseCase6RoomAllocationService
-```
+Clean separation between:
 
-## Example Output
+Room characteristics (beds, size, price)
 
-```
-Room Allocation Processing
-
-Booking confirmed for Guest: Abhi, Room ID: Single-1
-Booking confirmed for Guest: Subha, Room ID: Single-2
-Booking confirmed for Guest: Vanmathi, Room ID: Suite-1
-```
-
-## Benefits
-
-* Guaranteed uniqueness of room assignments
-* Prevention of double-booking
-* Immediate synchronization between booking and inventory
-* Reliable room allocation process
-
-## Author
-
-Sai Manikanta
+Room availability (inventory state)
